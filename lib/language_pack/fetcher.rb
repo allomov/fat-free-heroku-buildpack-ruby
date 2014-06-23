@@ -18,7 +18,10 @@ module LanguagePack
 
     def fetch_untar(path)
       curl = curl_command("#{@host_url.join(path)} -s -o")
-      run!("#{curl} - | tar zxf -")
+      archive = 'archive.tgz'
+      run!("#{curl} #{archive}")
+      run!("tar zxf #{archive}")
+      run!("rm #{archive}")
     end
 
     def fetch_bunzip2(path)
